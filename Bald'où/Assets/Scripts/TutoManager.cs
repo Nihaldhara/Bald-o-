@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutoManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class TutoManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tutoText;
     [SerializeField] private Image ShakaImage;
     [SerializeField] private Image ThumbsUpImage;
+    [SerializeField] private Image StopImage;
 
     private int currentStep = 0;
 
@@ -18,6 +20,8 @@ public class TutoManager : MonoBehaviour
     {
         ShakaImage.enabled = false;
         ThumbsUpImage.enabled = false;
+        StopImage.enabled = false;
+
         StartCoroutine(LearnToValidate());
     }
 
@@ -101,7 +105,8 @@ public class TutoManager : MonoBehaviour
         else if (currentStep == 4)
         {
             ShakaImage.enabled = false;
-            tutoText.text = "Congratulations! You have completed the tutorial.";
+            StopImage.enabled = true;
+            tutoText.text = "Congratulations! You have completed the tutorial.\n Put your hand foward to go back to the menu.";
         }
     }
 
@@ -109,5 +114,11 @@ public class TutoManager : MonoBehaviour
     public void LeaveLevel()
     {
         Debug.Log("Shaka");
+    }
+
+    public void GoToMenu()
+    {
+        StopImage.enabled = false;
+        SceneManager.LoadScene("Menu");
     }
 }
