@@ -9,9 +9,10 @@ public class BaldBehaviour : MonoBehaviour
     [SerializeField] public Transform target;
     
     //TODO: Changer les ranges pour s'adapter au mouvement du plateau
-    private RangeAttribute xRange = new(-15f, 15f);
-    private RangeAttribute zRange = new(-15f, 15f);
+    private RangeAttribute xRange;
+    private RangeAttribute zRange;
     private NavMeshAgent agent;
+    [SerializeField] private Transform terrain;
 
     private GameManager gameManager;
     private XRGrabInteractable xri;
@@ -20,6 +21,9 @@ public class BaldBehaviour : MonoBehaviour
 
     void Start()
     {
+        xRange = new RangeAttribute(terrain.position.x - 7.0f, terrain.position.x + 7.0f);
+        zRange = new RangeAttribute(terrain.position.z - 7.0f, terrain.position.z + 7.0f);
+        
         gameManager = GameManager.Instance;
         xri = GetComponent<XRGrabInteractable>();
         xri.firstSelectEntered.AddListener(OnSelected);
@@ -35,7 +39,7 @@ public class BaldBehaviour : MonoBehaviour
 
     void GotoNextPoint()
     {
-        Vector3 newPos = new Vector3(Random.Range(xRange.min, xRange.max), 6, Random.Range(zRange.min, zRange.max));
+        Vector3 newPos = new Vector3(Random.Range(xRange.min, xRange.max), terrain.position.y, Random.Range(zRange.min, zRange.max));
         target.position = newPos;
 
         agent.destination = target.position;
@@ -44,7 +48,7 @@ public class BaldBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (!agent.enabled) return;
+        if (!agent.enabled || !agent.isOnNavMesh) return;
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
             GotoNextPoint();
     }
@@ -60,6 +64,7 @@ public class BaldBehaviour : MonoBehaviour
         countdown = 3;
     }
 
+    //TODO: Afficher le countdown au dessus du chauve
     IEnumerator Countdown()
     {
         while (countdown > 0)

@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void MoveToNextLevel()
     {
-        if (currentLevel < levels.Length)
+        if (currentLevel + 1 < levels.Length)
         {
             levels[currentLevel].gameObject.SetActive(false);
             currentLevel++;
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            levels[currentLevel].gameObject.SetActive(false);
             gameState = GameState.SUCCESS;
         }
     }

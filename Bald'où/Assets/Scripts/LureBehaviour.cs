@@ -38,7 +38,7 @@ public class LureBehaviour : MonoBehaviour
 
     void Update ()
     {
-        if (!agent.enabled) return;
+        if (!agent.enabled || !agent.isOnNavMesh) return;
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
             GotoNextPoint();
     }
