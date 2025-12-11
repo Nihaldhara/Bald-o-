@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum GameState {SUCCESS, FAILURE, PLAYING}
@@ -7,56 +8,74 @@ public class GameManager : MonoBehaviour
     private GameState gameState = GameState.PLAYING;
     
     [SerializeField] private int maxHealth;
-    private int currentHealth = 5;
+    private int currentHealth;
     
     [SerializeField] private GameObject[] levels;
     private int currentLevel = 0;
+
+    [SerializeField] private GameObject levelHandle;
+    [SerializeField] private GameObject targets;
+    [SerializeField] private GameObject characters;
     
-    private bool baldieGrabbed = false;
-    
+    private static GameManager _instance;
+
+    public static GameManager Instance => _instance;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (currentHealth <= 0)
         {
-            Debug.Log("Failure...");
             gameState = GameState.FAILURE;
-        }
-
-        if (baldieGrabbed && currentLevel < levels.Length)
-        {
-            Debug.Log("Next Level");
-            MoveToNextLevel();
-        }
-
-        if (baldieGrabbed && currentLevel >= levels.Length)
-        {
-            Debug.Log("Success!");
-            gameState = GameState.SUCCESS;
         }
     }
 
     private void MoveToNextLevel()
     {
-        baldieGrabbed = false;
-        
-        levels[currentLevel].gameObject.SetActive(false);
-        currentLevel++;
-        levels[currentLevel].gameObject.SetActive(true);
+        if (currentLevel + 1 < levels.Length)
+        {
+            levels[currentLevel].gameObject.SetActive(false);
+            currentLevel++;
+            levels[currentLevel].gameObject.SetActive(true);
+        }
+        else
+        {
+            levels[currentLevel].gameObject.SetActive(false);
+            gameState = GameState.SUCCESS;
+        }
     }
 
-    public void GrabRight()
+    public void BaldieGrabbed()
     {
-        baldieGrabbed = true;
+        MoveToNextLevel();
     }
 
-    public void GrabWrong()
+    public void LureGrabbed()
     {
         currentHealth--;
+        Debug.Log("Lure Grabbed");
+    }
+
+    public void AnchorLevel()
+    {
+        levelHandle.SetActive(false);
+        targets.SetActive(true);
+        characters.SetActive(true);
     }
 }
