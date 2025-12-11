@@ -6,14 +6,13 @@ public class GameManager : MonoBehaviour
 {
     private GameState gameState = GameState.PLAYING;
     
-    [Header("Player Health")]
     [SerializeField] private int maxHealth;
     private int currentHealth = 5;
-
+    
     [SerializeField] private GameObject[] levels;
     private int currentLevel = 0;
     
-    public bool baldieGrabbed = false;
+    private bool baldieGrabbed = false;
     
     void Start()
     {
