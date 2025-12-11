@@ -19,7 +19,7 @@ public class BaldBehaviour : MonoBehaviour
 
     void GotoNextPoint()
     {
-        Vector3 newPos = new Vector3(Random.Range(xRange.min, xRange.max), 0, Random.Range(zRange.min, zRange.max));
+        Vector3 newPos = new Vector3(Random.Range(xRange.min, xRange.max), 6, Random.Range(zRange.min, zRange.max));
         target.position = newPos;
         
         agent.destination = target.position;

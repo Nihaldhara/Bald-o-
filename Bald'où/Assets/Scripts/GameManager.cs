@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     
     private bool baldieGrabbed = false;
+
+    [SerializeField] private GameObject LevelHandle;
+    [SerializeField] private GameObject Targets;
+    [SerializeField] private GameObject Characters;
     
     void Start()
     {
@@ -49,14 +53,15 @@ public class GameManager : MonoBehaviour
         currentLevel++;
         levels[currentLevel].gameObject.SetActive(true);
     }
+    
+    
 
-    public void GrabRight()
+    //A changer, il faut que ce soit faisable à chaque changement de niveau
+    //Donc en gros il faudra passer le game object parent et tout manipuler à l'intérieur
+    public void AnchorLevel()
     {
-        baldieGrabbed = true;
-    }
-
-    public void GrabWrong()
-    {
-        currentHealth--;
+        LevelHandle.SetActive(false);
+        Targets.SetActive(true);
+        Characters.SetActive(true);
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +6,6 @@ public class LureBehaviour : MonoBehaviour
     [SerializeField] private Transform[] targets;
     private int destPoint = 0;
     private NavMeshAgent agent;
-
 
     void Start () {
         agent = GetComponent<NavMeshAgent>();
