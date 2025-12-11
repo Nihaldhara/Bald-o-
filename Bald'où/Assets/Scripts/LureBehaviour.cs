@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class LureBehaviour : MonoBehaviour
 {
@@ -7,7 +9,15 @@ public class LureBehaviour : MonoBehaviour
     private int destPoint = 0;
     private NavMeshAgent agent;
 
-    void Start () {
+    private GameManager gameManager;
+    private XRGrabInteractable xri;
+    
+    void Start ()
+    {
+        gameManager = GameManager.Instance;
+        xri = GetComponent<XRGrabInteractable>();
+        xri.firstSelectEntered.AddListener(OnSelected);
+        
         agent = GetComponent<NavMeshAgent>();
 
         agent.autoBraking = false;
@@ -26,8 +36,16 @@ public class LureBehaviour : MonoBehaviour
     }
 
 
-    void Update () {
+    void Update ()
+    {
+        if (!agent.enabled) return;
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
             GotoNextPoint();
+    }
+
+    void OnSelected(SelectEnterEventArgs args)
+    {
+        Debug.Log("OnSelected");
+        gameManager.LureGrabbed();
     }
 }
