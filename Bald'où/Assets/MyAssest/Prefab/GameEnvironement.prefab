@@ -182,7 +182,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 5eaea196d0ea573439ea876941a57bf4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b3456a7b41dfda84fb18822f8033c0ab, type: 2}
+      objectReference: {fileID: 2100000, guid: 25ad57c0db878cf458f92bb3199e9a7c, type: 2}
     - target: {fileID: 919132149155446097, guid: 5eaea196d0ea573439ea876941a57bf4, type: 3}
       propertyPath: m_Name
       value: SM_Terrain_low

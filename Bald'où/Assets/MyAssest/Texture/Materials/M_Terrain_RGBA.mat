@@ -46,8 +46,8 @@ Material:
     - _A1_Smoothness: 0
     - _B1_Metal: 0
     - _B1_Smoothness: 0
-    - _Base_Metal: 0
-    - _Base_Smoothness: 0
+    - _Base_Metal: 1
+    - _Base_Smoothness: 0.313
     - _Dielectric: 0
     - _G1_Metal: 0
     - _G1_Smoothness: 0
@@ -57,11 +57,11 @@ Material:
     - _R1_Smoothness: 0
     - _Smoothness: 0
     m_Colors:
-    - _A1_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _A1_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
     - _B1_Color: {r: 1, g: 0.8954479, b: 0.6745283, a: 1}
-    - _Base_Color: {r: 1, g: 0.9023054, b: 0.7311321, a: 1}
+    - _Base_Color: {r: 0.2971698, g: 0.94560915, b: 1, a: 1}
     - _G1_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _R1_Color: {r: 0, g: 0.90836334, b: 1, a: 1}
+    - _R1_Color: {r: 0.3490566, g: 0.3482659, b: 0.34082413, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4449748015649064
