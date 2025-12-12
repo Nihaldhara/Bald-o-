@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image[] hearts;
     private int currentHealth;
 
+    public bool LeftThumbsUpActive;
+    public bool RightThumbsUpActive;
+
     [SerializeField] private GameObject[] levels;
     private int currentLevel = 0;
 
@@ -62,6 +65,9 @@ public class GameManager : MonoBehaviour
         currentHealth = maxHealth;
         environment.transform.position =
             new Vector3(xrOrigin.position.x, xrOrigin.position.y + 8, xrOrigin.position.z + 15);
+
+        LeftThumbsUpActive = false;
+        RightThumbsUpActive = false;
     }
 
     private void Update()
@@ -132,6 +138,43 @@ public class GameManager : MonoBehaviour
             xrOrigin.localScale = new Vector3(10.0f, 10.0f, 10.0f);
             xrOrigin.position = new Vector3(0f, 0f, -15f);
             isZoomedIn = false;
+        }
+    }
+
+    public void ThumbsUp()
+    {
+        if (LeftThumbsUpActive && RightThumbsUpActive)
+        {
+            Debug.Log("Both Thumbs Up - Returning to Menu");
+            GoToMenu();
+        }
+    }
+
+    public void LeftThumbUp(bool isUp)
+    {
+        if (isUp)
+        {
+            LeftThumbsUpActive = true;
+            Debug.Log("Left Thumb Up");
+        }
+        else
+        {
+            LeftThumbsUpActive = false;
+            Debug.Log("Left Thumb Down");
+        }
+    }
+
+    public void RightThumbUp(bool isUp)
+    {
+        if (isUp)
+        {
+            RightThumbsUpActive = true;
+            Debug.Log("Right Thumb Up");
+        }
+        else
+        {
+            RightThumbsUpActive = false;
+            Debug.Log("Right Thumb Down");
         }
     }
 }
