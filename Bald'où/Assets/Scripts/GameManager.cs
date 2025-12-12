@@ -6,17 +6,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public enum GameState {SUCCESS, FAILURE, PLAYING}
+public enum GameState
+{
+    SUCCESS,
+    FAILURE,
+    PLAYING
+}
 
 public class GameManager : MonoBehaviour
 {
     private GameState gameState = GameState.PLAYING;
     public Transform xrOrigin;
-    
+
     [SerializeField] private int maxHealth;
     [SerializeField] private Image[] hearts;
     private int currentHealth;
-    
+
     [SerializeField] private GameObject[] levels;
     private int currentLevel = 0;
 
@@ -30,7 +35,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject applause;
     [SerializeField] private GameObject cross;
     [SerializeField] private GameObject thumbsUp;
-    
+
     private static GameManager _instance;
 
     public static GameManager Instance => _instance;
@@ -51,13 +56,12 @@ public class GameManager : MonoBehaviour
     {
         successUI.SetActive(false);
         failureUI.SetActive(false);
-        
-        applause.SetActive(false);
-        
-        currentHealth = maxHealth;
-        environment.transform.position = new Vector3(xrOrigin.position.x, xrOrigin.position.y + 8, xrOrigin.position.z + 15);
 
-        hearts = new Image[maxHealth];
+        applause.SetActive(false);
+
+        currentHealth = maxHealth;
+        environment.transform.position =
+            new Vector3(xrOrigin.position.x, xrOrigin.position.y + 8, xrOrigin.position.z + 15);
     }
 
     private void Update()
@@ -104,6 +108,7 @@ public class GameManager : MonoBehaviour
     //Add brief "cross" animation
     public void LureGrabbed()
     {
+        hearts[currentHealth - 1].enabled = false;
         currentHealth--;
         StartCoroutine(CrossAnimation());
     }
@@ -113,10 +118,8 @@ public class GameManager : MonoBehaviour
         cross.SetActive(true);
         yield return new WaitForSeconds(5);
         cross.SetActive(false);
-        hearts[currentHealth].enabled = false;
-        Debug.Log("Lure Grabbed");
     }
-    
+
     public void GoToMenu()
     {
         SceneManager.LoadScene("Menu");

@@ -40,6 +40,15 @@ MonoBehaviour:
     m_StaticWorldBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 50, y: 50, z: 50}
+  - m_GeneratedName: 'Billboard Legacy  Atlas Lighting Soft Color Diffuse CastShadow 
+      Additive UVs  Content/SmokeEffects/Smoke/SmokeWhite_EG_7x7.png (none) [Lit:
+      Library/PopcornFXCore/Materials/DefaultTextures/NMap_Flat.dds Library/PopcornFXCore/Materials/DefaultTextures/White.dds
+      noShadows 0,75 1 0] (none) (none) (none) (none) (none) (none) 20 0'
+    m_DefaultVertexBufferSize: 384
+    m_DefaultIndexBufferSize: 1155
+    m_StaticWorldBounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 50, y: 50, z: 50}
   m_UseMeshInstancing: 1
   m_FreeUnusedBatches: 0
   m_FrameCountBeforeFreeingUnusedBatches: 240
