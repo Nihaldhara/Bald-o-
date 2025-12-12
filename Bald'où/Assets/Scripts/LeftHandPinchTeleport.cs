@@ -59,7 +59,7 @@ public class LeftHandPinchTeleport : MonoBehaviour
     {
         if (!gameManager.isZoomedIn)
         {
-            xrOrigin.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            xrOrigin.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
         gameManager.isZoomedIn = true;
