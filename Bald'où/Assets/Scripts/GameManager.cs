@@ -1,6 +1,9 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameState {SUCCESS, FAILURE, PLAYING}
 
@@ -10,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Transform xrOrigin;
     
     [SerializeField] private int maxHealth;
+    [SerializeField] private Image[] hearts;
     private int currentHealth;
     
     [SerializeField] private GameObject[] levels;
@@ -48,6 +52,8 @@ public class GameManager : MonoBehaviour
         
         currentHealth = maxHealth;
         environment.transform.position = new Vector3(xrOrigin.position.x, xrOrigin.position.y + 8, xrOrigin.position.z + 15);
+
+        hearts = new Image[maxHealth];
     }
 
     private void Update()
@@ -84,6 +90,7 @@ public class GameManager : MonoBehaviour
     public void LureGrabbed()
     {
         currentHealth--;
+        hearts[currentHealth].enabled = false;
         Debug.Log("Lure Grabbed");
     }
     
