@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState {SUCCESS, FAILURE, PLAYING}
 
@@ -17,9 +18,10 @@ public class GameManager : MonoBehaviour
     public bool isZoomedIn = false;
 
     [SerializeField] private GameObject environment;
-    [SerializeField] private GameObject levelHandle;
-    [SerializeField] private GameObject targets;
-    [SerializeField] private GameObject characters;
+
+    [SerializeField] private GameObject successUI;
+    [SerializeField] private GameObject applause;
+    [SerializeField] private GameObject failureUI;
     
     private static GameManager _instance;
 
@@ -39,6 +41,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        successUI.SetActive(false);
+        failureUI.SetActive(false);
+        
+        applause.SetActive(false);
+        
         currentHealth = maxHealth;
         environment.transform.position = new Vector3(xrOrigin.position.x, xrOrigin.position.y + 8, xrOrigin.position.z + 15);
     }
@@ -48,6 +55,7 @@ public class GameManager : MonoBehaviour
         if (currentHealth <= 0)
         {
             gameState = GameState.FAILURE;
+            failureUI.SetActive(true);
         }
     }
 
@@ -63,6 +71,8 @@ public class GameManager : MonoBehaviour
         {
             levels[currentLevel].gameObject.SetActive(false);
             gameState = GameState.SUCCESS;
+            successUI.SetActive(true);
+            applause.SetActive(true);
         }
     }
 
@@ -76,6 +86,11 @@ public class GameManager : MonoBehaviour
         currentHealth--;
         Debug.Log("Lure Grabbed");
     }
+    
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 
     public void ZoomingOut()
     {
@@ -86,11 +101,4 @@ public class GameManager : MonoBehaviour
             isZoomedIn = false;
         }
     }
-
-    /*public void AnchorLevel()
-    {
-        levelHandle.SetActive(false);
-        targets.SetActive(true);
-        characters.SetActive(true);
-    }*/
 }

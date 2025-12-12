@@ -11,10 +11,6 @@ public class TutoManager : MonoBehaviour
     [SerializeField] private Image ShakaImage;
     [SerializeField] private Image ThumbsUpImage;
     [SerializeField] private Image StopImage;
-
-    [SerializeField] private GameObject levelHandle;
-    [SerializeField] private GameObject targets;
-    [SerializeField] private GameObject characters;
     
     private int currentStep = 0;
 
@@ -26,37 +22,24 @@ public class TutoManager : MonoBehaviour
         ThumbsUpImage.enabled = false;
         StopImage.enabled = false;
 
-        StartCoroutine(LearnToValidate());
+        StartCoroutine(TheGame());
     }
 
-    // Learn to Validate (thumbs up) => 0
-    IEnumerator LearnToValidate()
+    //Quick Game Intro => 0
+    IEnumerator TheGame()
     {
-        tutoText.text = "To validate and move to the next step, do a thumbs up with your right hand.";
-        ThumbsUpImage.enabled = true;
-        yield return null;
-    }
-
-    // Learn to Move Level => 1
-    IEnumerator LearnToMoveLevel()
-    {
-        tutoText.text = "Well done!!!";
+        tutoText.text = "Welcome to Bald'où! A game where the baldies are trying to invade our world, and only YOU can stop them";
         yield return new WaitForSeconds(3);
-        tutoText.text = "To move the table to a comfortable position, grab the level handle with your right hand. \n After you validate this position, you won't be able to move it again.";
-        yield return null;
     }
-
-    // Learn to Grab People => 2
+    
+    // Learn to Grab People => 1
     IEnumerator LearnToGrabPeople()
     {
-        AnchorLevel();
-        tutoText.text = "Well done!!!";
-        yield return new WaitForSeconds(3);
         tutoText.text = "To grab a person, reach out and grab or pinch them with your right hand.";
         yield return new WaitForSeconds(2);
     }
 
-    // Learn to Teleport in the Level => 3
+    // Learn to Teleport in the Level => 2
     IEnumerator LearnToTeleportInLevel()
     {
         tutoText.text = "Well done!!!";
@@ -65,7 +48,7 @@ public class TutoManager : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
-    // Learn to Leave the Level => 4
+    // Learn to Leave the Level => 3
     IEnumerator LearnToLeaveLevel()
     {
         tutoText.text = "Well done!!!";
@@ -80,45 +63,24 @@ public class TutoManager : MonoBehaviour
     {
         if (currentStep == 0)
         {
-            ThumbsUpImage.enabled = false;
             currentStep++;
-            StartCoroutine(LearnToMoveLevel());
+            StartCoroutine(LearnToGrabPeople());
         }
         else if (currentStep == 1)
         {
             currentStep++;
-            StartCoroutine(LearnToGrabPeople());
+            StartCoroutine(LearnToTeleportInLevel());
         }
         else if (currentStep == 2)
         {
             currentStep++;
-            StartCoroutine(LearnToTeleportInLevel());
-        }
-        else if (currentStep == 3)
-        {
-            currentStep++;
             StartCoroutine(LearnToLeaveLevel());
         }
-        else if (currentStep == 4)
+        else if (currentStep == 3)
         {
             ShakaImage.enabled = false;
             StopImage.enabled = true;
             tutoText.text = "Congratulations! You have completed the tutorial.\n Place your palm up to go back to the main menu.";
         }
     }
-
-    public void GoToMenu()
-    {
-        StopImage.enabled = false;
-        SceneManager.LoadScene("Menu");
-    }
-    
-    private void AnchorLevel()
-    {
-        levelHandle.SetActive(false);
-        targets.SetActive(true);
-        characters.SetActive(true);
-    }
-    
-    //TODO: Utiliser une main pour grab et l'autre main pour tp
 }
