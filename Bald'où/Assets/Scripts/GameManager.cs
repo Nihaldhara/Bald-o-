@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public Transform xrOrigin;
     
     [SerializeField] private int maxHealth;
-    [SerializeField] private Image[] hearts;
+    [SerializeField] private Image[] hearts = new Image[5];
     private int currentHealth;
     
     [SerializeField] private GameObject[] levels;
