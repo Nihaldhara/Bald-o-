@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,8 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject environment;
 
     [SerializeField] private GameObject successUI;
-    [SerializeField] private GameObject applause;
     [SerializeField] private GameObject failureUI;
+
+    [SerializeField] private GameObject applause;
+    [SerializeField] private GameObject cross;
+    [SerializeField] private GameObject thumbsUp;
     
     private static GameManager _instance;
 
@@ -76,15 +80,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Add brief "thumbs up" animation
     public void BaldieGrabbed()
     {
+        if (currentLevel + 1 < levels.Length)
+            StartCoroutine(ThumbsUpAnimation());
         MoveToNextLevel();
     }
 
+    IEnumerator ThumbsUpAnimation()
+    {
+        thumbsUp.SetActive(true);
+        yield return new WaitForSeconds(5);
+        thumbsUp.SetActive(false);
+    }
+
+    //Add brief "cross" animation
     public void LureGrabbed()
     {
         currentHealth--;
-        Debug.Log("Lure Grabbed");
+        StartCoroutine(CrossAnimation());
+    }
+
+    IEnumerator CrossAnimation()
+    {
+        cross.SetActive(true);
+        yield return new WaitForSeconds(5);
+        cross.SetActive(false);
     }
     
     public void GoToMenu()
