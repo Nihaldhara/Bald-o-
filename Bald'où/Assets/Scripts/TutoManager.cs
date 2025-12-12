@@ -12,6 +12,10 @@ public class TutoManager : MonoBehaviour
     [SerializeField] private Image ThumbsUpImage;
     [SerializeField] private Image StopImage;
 
+    [SerializeField] private GameObject levelHandle;
+    [SerializeField] private GameObject targets;
+    [SerializeField] private GameObject characters;
+    
     private int currentStep = 0;
 
 
@@ -25,17 +29,10 @@ public class TutoManager : MonoBehaviour
         StartCoroutine(LearnToValidate());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Learn to Validate (thumbs up) => 0
-
     IEnumerator LearnToValidate()
     {
-        tutoText.text = "To validate and move to next step, please do a thumb up.";
+        tutoText.text = "To validate and move to the next step, do a thumbs up with your right hand.";
         ThumbsUpImage.enabled = true;
         yield return null;
     }
@@ -45,16 +42,17 @@ public class TutoManager : MonoBehaviour
     {
         tutoText.text = "Well done!!!";
         yield return new WaitForSeconds(3);
-        tutoText.text = "To place the level, please grab the level handle. \n Once moved and validated, you won't be able to move it again.";
+        tutoText.text = "To move the table to a comfortable position, grab the level handle with your right hand. \n After you validate this position, you won't be able to move it again.";
         yield return null;
     }
 
     // Learn to Grab People => 2
     IEnumerator LearnToGrabPeople()
     {
+        AnchorLevel();
         tutoText.text = "Well done!!!";
         yield return new WaitForSeconds(3);
-        tutoText.text = "To grab a person, please reach out and close your hand around them.";
+        tutoText.text = "To grab a person, reach out and grab or pinch them with your right hand.";
         yield return new WaitForSeconds(2);
     }
 
@@ -63,7 +61,7 @@ public class TutoManager : MonoBehaviour
     {
         tutoText.text = "Well done!!!";
         yield return new WaitForSeconds(3);
-        tutoText.text = "To teleport, pinch your fingers to the localization wanted";
+        tutoText.text = "To zoom in and teleport onto the table, use your left hand: pinch to aim and release to teleport";
         yield return new WaitForSeconds(2);
     }
 
@@ -72,11 +70,10 @@ public class TutoManager : MonoBehaviour
     {
         tutoText.text = "Well done!!!";
         yield return new WaitForSeconds(3);
-        tutoText.text = "To leave the level, please do the shaka.";
+        tutoText.text = "To go back to your original size, do the shaka with your right hand!";
         ShakaImage.enabled = true;
         yield return new WaitForSeconds(2);
     }
-
 
     // Next Step
     public void NextStep()
@@ -106,14 +103,8 @@ public class TutoManager : MonoBehaviour
         {
             ShakaImage.enabled = false;
             StopImage.enabled = true;
-            tutoText.text = "Congratulations! You have completed the tutorial.\n Put your hand foward to go back to the menu.";
+            tutoText.text = "Congratulations! You have completed the tutorial.\n Place your palm up to go back to the main menu.";
         }
-    }
-
-    // Leave scene
-    public void LeaveLevel()
-    {
-        Debug.Log("Shaka");
     }
 
     public void GoToMenu()
@@ -121,4 +112,13 @@ public class TutoManager : MonoBehaviour
         StopImage.enabled = false;
         SceneManager.LoadScene("Menu");
     }
+    
+    private void AnchorLevel()
+    {
+        levelHandle.SetActive(false);
+        targets.SetActive(true);
+        characters.SetActive(true);
+    }
+    
+    //TODO: Utiliser une main pour grab et l'autre main pour tp
 }

@@ -6,6 +6,7 @@ public enum GameState {SUCCESS, FAILURE, PLAYING}
 public class GameManager : MonoBehaviour
 {
     private GameState gameState = GameState.PLAYING;
+    public Transform xrOrigin;
     
     [SerializeField] private int maxHealth;
     private int currentHealth;
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] levels;
     private int currentLevel = 0;
 
+    public bool isZoomedIn = false;
+
+    [SerializeField] private GameObject environment;
     [SerializeField] private GameObject levelHandle;
     [SerializeField] private GameObject targets;
     [SerializeField] private GameObject characters;
@@ -29,13 +33,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
     void Start()
     {
         currentHealth = maxHealth;
+        environment.transform.position = new Vector3(xrOrigin.position.x, xrOrigin.position.y + 8, xrOrigin.position.z + 15);
     }
 
     private void Update()
@@ -72,10 +77,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("Lure Grabbed");
     }
 
-    public void AnchorLevel()
+    public void ZoomingOut()
+    {
+        if (isZoomedIn)
+        {
+            xrOrigin.localScale = new Vector3(10.0f, 10.0f, 10.0f);
+            xrOrigin.position = new Vector3(0f, 0f, -15f);
+            isZoomedIn = false;
+        }
+    }
+
+    /*public void AnchorLevel()
     {
         levelHandle.SetActive(false);
         targets.SetActive(true);
         characters.SetActive(true);
-    }
+    }*/
 }
